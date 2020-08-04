@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myblog.mapper.system.ParamItemMapper">
+    <resultMap id="BaseResultMap" type="com.myblog.entity.system.ParamItem">
+        <id column="object_id" property="objectId" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="text" property="text" jdbcType="VARCHAR"/>
+        <result column="value" property="value" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="findById" parameterType="INTEGER" resultMap="BaseResultMap">
+        select * from system where object_id = #{objectId}
+    </select>
+    <select id="findByKey" parameterType="String" resultMap="BaseResultMap">
+        select * from system where name = #{name}
+    </select>
+    <select id="getParamItemList" parameterType="INTEGER" resultMap="BaseResultMap">
+        select * from system_param_item where param_id = #{paramId}
+    </select>
+    <insert id="addParamItem" parameterType="ParamItem">
+        insert into system_param_item(sequence,label,label_zh,value,description) values
+        (#{sequence},#{label},#{labelZh},#{value},#{description})
+    </insert>
+</mapper>

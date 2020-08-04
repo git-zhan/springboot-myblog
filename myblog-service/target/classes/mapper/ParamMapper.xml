@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myblog.mapper.system.ParamMapper">
+    <resultMap id="BaseResultMap" type="com.myblog.entity.system.Param">
+        <id column="object_id" property="objectId" jdbcType="INTEGER"/>
+        <result column="is_active" property="isActive" jdbcType="BIT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="findByName" parameterType="String" resultMap="BaseResultMap">
+        select * from system_param where name = #{name}
+    </select>
+    <select id="findByType" parameterType="String" resultMap="BaseResultMap">
+        select * from system_param where type = #{type}
+    </select>
+    <insert id="saveParam" parameterType="Param">
+        insert into system_param(name,description,type) values (#{name},#{description},#{type});
+    </insert>
+</mapper>
