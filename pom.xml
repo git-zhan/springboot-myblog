@@ -1,0 +1,139 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.zxx</groupId>
+    <artifactId>blog-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0.0</version>
+    <modules>
+        <module>blog-web</module>
+        <module>blog-service</module>
+        <module>blog-common</module>
+        <module>blog-model</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <junit.version>4.12</junit.version>
+        <log4j.version>1.2.17</log4j.version>
+        <lombok.version>1.16.18</lombok.version>
+        <mysql.version>8.0.16</mysql.version>
+        <druid.version>1.1.16</druid.version>
+        <mybatis.spring.boot.version>1.3.0</mybatis.spring.boot.version>
+        <jackson.databind.version>2.10.0</jackson.databind.version>
+        <fastjson.version>1.2.47</fastjson.version>
+        <springdoc.version>1.4.0</springdoc.version>
+        <pageHelper.version>1.2.5</pageHelper.version>
+		<jwt.version>0.9.0</jwt.version>
+		
+		
+        <blog.service.version>1.0.0.0</blog.service.version>
+        <blog.common.version>1.0.0.0</blog.common.version>
+        <blog.model.version>1.0.0.0</blog.model.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!-- 持久化框架mybatis-->
+	        <dependency>
+	            <groupId>org.mybatis.spring.boot</groupId>
+	            <artifactId>mybatis-spring-boot-starter</artifactId>
+	            <version>${mybatis.spring.boot.version}</version>
+	        </dependency>
+	        <dependency>
+			    <groupId>com.github.pagehelper</groupId>
+			    <artifactId>pagehelper-spring-boot-starter</artifactId>
+			    <version>${pageHelper.version}</version>
+			</dependency>
+            <!-- spring文档 -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <!-- Bean处理包 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.2.2.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.SR1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2.1.0.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- 数据库连接-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!-- 日志框架 -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <!-- json处理 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.databind.version}</version>
+            </dependency>
+            <dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+			<dependency>
+	            <groupId>io.jsonwebtoken</groupId>
+	            <artifactId>jjwt</artifactId>
+	            <version>${jwt.version}</version>
+	        </dependency>
+		
+            <!--  博客相关依赖 -->
+            <dependency>
+                <groupId>com.zxx</groupId>
+                <artifactId>blog-service</artifactId>
+                <version>${blog.service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zxx</groupId>
+                <artifactId>blog-common</artifactId>
+                <version>${blog.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zxx</groupId>
+                <artifactId>blog-model</artifactId>
+                <version>${blog.model.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

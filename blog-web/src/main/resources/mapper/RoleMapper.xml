@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zxx.blog.mapper.security.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.zxx.blog.entity.security.Role">
+        <id column="object_id" property="objectId" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getRoleListByUser" parameterType="string" resultMap="BaseResultMap">
+        select r.* from sys_security_user_role ur 
+        	left join sys_security_role r on ur.role_id = r.object_id
+        	where ur.user_id = #{userId}
+    </select>
+    
+    <select id="selectPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+	  select * from sys_security_role where 1 = 1
+	  <if test="query.name != null and query.name != '' ">
+	  	and name like '%${query.name}%'
+	  </if>
+	  <if test="query.description != null and query.description != '' ">
+	  	and description like '%${query.description}%'
+	  </if>
+	</select>
+	
+	<select id="getRoleByName"  resultMap="BaseResultMap">
+	  select * from sys_security_role where name = #{name}
+	</select>
+    
+    <insert id="insert" parameterType="Role">
+    	insert into sys_security_role values(#{objectId},#{name},#{description})
+    </insert>
+    
+    <delete id="delete" parameterType="string">
+    	delete from sys_security_role where object_id = #{id}
+    </delete>
+    
+    <update id="update" parameterType="Role">
+    	update sys_security_role set 
+    		name = #{name},description = #{description}
+    		where object_id = #{objectId}
+    </update>
+    
+    <insert id="insertRoleAuth" parameterType="RoleAuthority">
+    	insert into sys_security_role_authority values(#{objectId},#{roleId},#{authorityId})
+    </insert>
+    
+    <delete id="deleteRoleAuth" parameterType="string">
+    	delete from sys_security_role_authority where role_id = #{id}
+    </delete>
+</mapper>

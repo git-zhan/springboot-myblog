@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zxx.blog.mapper.security.AuthorityMapper">
+    <resultMap id="BaseResultMap" type="com.zxx.blog.entity.security.Authority">
+        <id column="object_id" property="objectId" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+        <result column="is_active" property="isActive" jdbcType="BIT"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="role_id" property="roleId" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <select id="selectByQuery" parameterType="java.util.Map" resultMap="BaseResultMap">
+	  select * from sys_security_authority where 1 = 1
+	  <if test="query.parentId != null and query.parentId != '' ">
+	  	and parent_id = #{query.parentId}
+	  </if>
+	  order by sequence
+	</select>
+	
+	<select id="getRoleAuthList" parameterType="string" resultMap="BaseResultMap">
+		select a.*,ra.role_id from sys_security_authority a
+		left join sys_security_role_authority ra on a.object_id = ra.authority_id 
+		where ra.role_id = #{id}
+	</select>
+	
+	<select id="selectByName"  resultMap="BaseResultMap">
+	  select * from sys_security_authority where name = #{name}
+	</select>
+	
+	<select id="selectById"  resultMap="BaseResultMap">
+	  select * from sys_security_authority where object_id = #{id}
+	</select>
+	
+	<delete id="delete" parameterType="string">
+    	delete from sys_security_authority where object_id = #{id}
+    </delete>
+	
+	<insert id="insert" parameterType="Authority">
+    	insert into sys_security_authority(object_id,name,description,path,sequence,is_active,parent_id,create_time) 
+    		values(#{objectId},#{name},#{description},#{path},#{sequence},#{isActive},#{parentId},#{createTime})
+    </insert>
+    
+    <insert id="update" parameterType="Authority">
+    	update sys_security_authority set
+    		name = #{name},
+    		description = #{description},
+    		path = #{path},
+    		is_active = #{isActive},
+    		sequence = #{sequence},
+    		update_time = #{updateTime}
+    		where object_id = #{objectId}
+    </insert>
+
+</mapper>
